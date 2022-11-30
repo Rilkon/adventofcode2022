@@ -1,4 +1,6 @@
 import pathlib
+import sys
+
 
 def parse(puzzle_input):
     # Parse input.
@@ -12,8 +14,10 @@ def part1(numbers):
             if num1 < num2 and num1 + num2 == 2020:
                 return num1 * num2
 
+
 def part2(numbers):
     return 0
+
 
 def solve(puzzle_input):
     """Solve the puzzle for the given input."""
@@ -24,7 +28,8 @@ def solve(puzzle_input):
 
 
 if __name__ == "__main__":
-    path = "./day01.txt"
-    puzzle_input = pathlib.Path(path).read_text().strip()
-    solutions = solve(puzzle_input)
-    print("\n".join(str(solution) for solution in solutions))
+    for path in sys.argv[1:]:
+        print(f"{path}:")
+        puzzle_input = pathlib.Path(path).read_text().strip()
+        solutions = solve(puzzle_input)
+        print("\n".join(str(solution) for solution in solutions))
