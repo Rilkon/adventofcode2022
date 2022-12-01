@@ -1,5 +1,7 @@
 # test_aoc_template.py
 import pathlib
+from webbrowser import get
+
 import pytest
 import day01 as aoc
 
@@ -20,21 +22,21 @@ def example2():
 
 def test_parse_example1(example1):
     """Test that input is parsed properly."""
-    assert example1 == [1721, 979, 366, 299, 675, 1456]
+    assert example1 == ["1000", "2000", "3000", "", "4000", "", "5000", "6000", "", "7000", "8000", "9000", "", "10000"]
 
 
 def test_part1_example1(example1):
     """Test part 1 on example input."""
-    assert aoc.part1(example1) == 514579
+    assert aoc.part1(aoc.get_elve_dict(example1)) == 24000
 
 
-@pytest.mark.skip(reason="Not implemented")
 def test_part2_example1(example1):
     """Test part 2 on example input."""
-    assert aoc.part2(example1) == ...
+    assert aoc.part2(aoc.get_elve_dict(example1)) == 45000
 
 
 @pytest.mark.skip(reason="Not implemented")
 def test_part2_example2(example2):
     """Test part 2 on example input."""
-    assert aoc.part2(example2) == ...
+    assert aoc.part2(example2) == ["1000", "2000", "3000", "", "4000", "", "5000", "6000", "", "7000", "8000", "9000",
+                                   "", "10000"]
