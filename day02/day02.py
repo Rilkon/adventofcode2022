@@ -5,12 +5,7 @@ import sys
 LOSE = [["A", "Z"], ["B", "X"], ["C", "Y"]]
 DRAW = [["A", "X"], ["B", "Y"], ["C", "Z"]]
 
-POINTS = {"A": 1,
-          "B": 2,
-          "C": 3,
-          "X": 1,
-          "Y": 2,
-          "Z": 3}
+POINTS = {"A": 1, "B": 2, "C": 3, "X": 1, "Y": 2, "Z": 3}
 
 # Outcome determination
 TOWIN = {"A": "Y", "B": "Z", "C": "X"}
@@ -23,22 +18,14 @@ def parse(parsedata):
 
 
 def part1(data):
-    score = 0
-    for pair in data:
-        score += get_score(pair)
-    return score
+    return sum(get_score(pair) for pair in data)
 
 
 def part2(data):
-    score = 0
-    for pair in data:
-        newpair = choose_pair(pair)
-        score += get_score(newpair)
-    return score
+    return sum(get_score(choose_pair(pair)) for pair in data)
 
 
 def choose_pair(pair):
-    # x = lose y = draw, z = win
     if pair[1] == "X":
         return [pair[0], TOLOSE[pair[0]]]
     elif pair[1] == "Y":
@@ -56,8 +43,8 @@ def get_score(pair: list) -> int:
         return 6 + POINTS[pair[1]]
 
 
-def solve(puzzle_input):
-    data = parse(puzzle_input)
+def solve(puzzle):
+    data = parse(puzzle)
     solution1 = part1(data)
     solution2 = part2(data)
     return solution1, solution2
