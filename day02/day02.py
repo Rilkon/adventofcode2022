@@ -25,7 +25,7 @@ def part2(data):
     return sum(get_score(choose_pair(pair)) for pair in data)
 
 
-def choose_pair(pair):
+def choose_pair(pair: list) -> list:
     if pair[1] == "X":
         return [pair[0], TOLOSE[pair[0]]]
     elif pair[1] == "Y":
