@@ -1,6 +1,10 @@
 import pathlib
 import sys
 
+# Score determination
+LOSE = [["A", "Z"], ["B", "X"], ["C", "Y"]]
+DRAW = [["A", "X"], ["B", "Y"], ["C", "Z"]]
+
 POINTS = {"A": 1,
           "B": 2,
           "C": 3,
@@ -8,21 +12,17 @@ POINTS = {"A": 1,
           "Y": 2,
           "Z": 3}
 
-LOSE = [["A", "Z"], ["B", "X"], ["C", "Y"]]
-DRAW = [["A", "X"], ["B", "Y"], ["C", "Z"]]
-
+# Outcome determination
 TOWIN = {"A": "Y", "B": "Z", "C": "X"}
 TOLOSE = {"A": "Z", "B": "X", "C": "Y"}
 TODRAW = {"A": "X", "B": "Y", "C": "Z"}
 
 
 def parse(parsedata):
-    """Parse input."""
     return [line.split(" ") for line in parsedata.splitlines()]
 
 
 def part1(data):
-    """Solve part 1."""
     score = 0
     for pair in data:
         score += get_score(pair)
@@ -30,7 +30,6 @@ def part1(data):
 
 
 def part2(data):
-    """Solve part 2."""
     score = 0
     for pair in data:
         newpair = choose_pair(pair)
@@ -49,18 +48,16 @@ def choose_pair(pair):
 
 
 def get_score(pair: list) -> int:
-    if pair in DRAW:
-        return 3 + POINTS[pair[1]]
-    elif pair in LOSE:
+    if pair in LOSE:
         return 0 + POINTS[pair[1]]
+    elif pair in DRAW:
+        return 3 + POINTS[pair[1]]
     else:
         return 6 + POINTS[pair[1]]
 
 
 def solve(puzzle_input):
-    """Solve the puzzle for the given input."""
     data = parse(puzzle_input)
-    # print(data)
     solution1 = part1(data)
     solution2 = part2(data)
     return solution1, solution2

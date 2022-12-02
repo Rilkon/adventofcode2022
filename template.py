@@ -3,19 +3,15 @@ import sys
 
 
 def parse(puzzle_input):
-    """Parse input."""
-
+    return ""
 
 def part1(data):
-    """Solve part 1."""
-
+    return ""
 
 def part2(data):
-    """Solve part 2."""
-
+    return ""
 
 def solve(puzzle_input):
-    """Solve the puzzle for the given input."""
     data = parse(puzzle_input)
     solution1 = part1(data)
     solution2 = part2(data)
