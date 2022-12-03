@@ -30,15 +30,15 @@ def test_parse_example1(example1):
 
 
 def test_translate_priority_lowercase():
-    assert aoc.translate_to_priority("a") == 1
-    assert aoc.translate_to_priority("c") == 3
-    assert aoc.translate_to_priority("z") == 26
+    assert aoc.get_priority("a") == 1
+    assert aoc.get_priority("c") == 3
+    assert aoc.get_priority("z") == 26
 
 
 def test_translate_priority_uppercase():
-    assert aoc.translate_to_priority("A") == 27
-    assert aoc.translate_to_priority("C") == 29
-    assert aoc.translate_to_priority("Z") == 52
+    assert aoc.get_priority("A") == 27
+    assert aoc.get_priority("C") == 29
+    assert aoc.get_priority("Z") == 52
 
 def test_part1_example1(example1):
     """Test part 1 on example input."""
@@ -47,7 +47,7 @@ def test_part1_example1(example1):
 
 def test_part2_example1(example1):
     """Test part 2 on example input."""
-    assert aoc.part2(example1) == 133
+    assert aoc.part2(example1) == 70
 
 
 

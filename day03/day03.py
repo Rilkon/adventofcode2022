@@ -11,7 +11,7 @@ def part1(data):
     for line in data:
         halfsize = len(line) // 2
         first, second = set(line[:halfsize]), set(line[halfsize:])
-        priority_sum += translate_to_priority(''.join(first.intersection(second)))
+        priority_sum += get_priority(''.join(first.intersection(second)))
 
     return priority_sum
 
@@ -20,12 +20,12 @@ def part2(data):
     priority_sum = 0
     for i in range(0, len(data), 3):
         s1, s2, s3 = set(data[0+i]), set(data[1+i]), set(data[2+i])
-        priority_sum += translate_to_priority(''.join(s1.intersection(s2.intersection(s3))))
+        priority_sum += get_priority(''.join(s1.intersection(s2.intersection(s3))))
 
     return priority_sum
 
 
-def translate_to_priority(letter: str) -> int:
+def get_priority(letter: str) -> int:
     if letter.isupper():
         # Capital A = 65 and should represent 27
         return ord(letter) - 38
