@@ -14,6 +14,7 @@ def part1(data):
         one_min, one_max, two_min, two_max = map(int, re.findall(r"\d+", line))
         if (one_min < two_min or one_max > two_max) and (two_min < one_min or two_max > one_max):
             counter += 1
+
     return counter
 
 def part2(data):
