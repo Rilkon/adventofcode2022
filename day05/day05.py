@@ -6,7 +6,7 @@ from copy import deepcopy
 
 
 def parse(crate_data, cmd_data):
-    cargobay = [deque() for i in range(int(crate_data.strip()[-1]))]
+    cargobay = [deque() for _ in range(int(crate_data.strip()[-1]))]
     commands = []
 
     # Get commandset first and ignore everything else
