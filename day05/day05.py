@@ -5,17 +5,17 @@ import re
 from copy import deepcopy
 
 
-def parse(parsedata):
-    cargobay = [deque(), deque(), deque(), deque(), deque(), deque(), deque(), deque(), deque()]
+def parse(crate_data, cmd_data):
+    cargobay = [deque() for i in range(int(crate_data.strip()[-1]))]
     commands = []
 
     # Get commandset first and ignore everything else
-    for line in parsedata.splitlines():
+    for line in cmd_data.splitlines():
         if line.strip().startswith("move"):
             commands.append(list(map(int, re.findall(r"\d+", line))))
 
     # Reverse the direction the file is read to make building the stacks easier
-    for line in reversed(parsedata.splitlines()):
+    for line in reversed(crate_data.splitlines()):
         if line.strip().startswith("["):
             for i in range(0, len(line)):
                 # Ignore everything except letters.
@@ -52,7 +52,7 @@ def gen_result_string(cargobay):
 
 
 def solve(puzzle):
-    cms, cgbay = parse(puzzle)
+    cms, cgbay = parse(puzzle_input[0], puzzle_input[1])
     solution1 = part1(deepcopy(cms), deepcopy(cgbay))
     solution2 = part2(deepcopy(cms), deepcopy(cgbay))
     return solution1, solution2
@@ -61,6 +61,6 @@ def solve(puzzle):
 if __name__ == "__main__":
     for path in sys.argv[1:]:
         print(f"{path}:")
-        puzzle_input = pathlib.Path(path).read_text()
+        puzzle_input = pathlib.Path(path).read_text().split("\n\n")
         solutions = solve(puzzle_input)
         print("\n".join(str(solution) for solution in solutions))
