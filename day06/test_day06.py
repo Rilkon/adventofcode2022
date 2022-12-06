@@ -30,17 +30,13 @@ def test_part1_example1(example1):
     assert aoc.part1("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 11
 
 
-@pytest.mark.skip(reason="Not implemented")
+
 def test_part2_example1(example1):
     """Test part 2 on example input."""
-    assert aoc.part1("mjqjpqmgbljsphdztnvjfqwrcgsmlb") == 19
-    assert aoc.part1("bvwbjplbgvbhsrlpgdmjqwftvncz") == 23
-    assert aoc.part1("nppdvjthqldpwncqszvftbrmjlhg") == 23
-    assert aoc.part1("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 29
-    assert aoc.part1("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 26
+    assert aoc.part2("mjqjpqmgbljsphdztnvjfqwrcgsmlb") == 19
+    assert aoc.part2("bvwbjplbgvbhsrlpgdmjqwftvncz") == 23
+    assert aoc.part2("nppdvjthqldpwncqszvftbrmjlhg") == 23
+    assert aoc.part2("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 29
+    assert aoc.part2("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 26
 
 
-@pytest.mark.skip(reason="Not implemented")
-def test_part2_example2(example2):
-    """Test part 2 on example input."""
-    assert aoc.part2(example2) == 0
