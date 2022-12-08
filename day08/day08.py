@@ -20,8 +20,7 @@ def part2(data):
 
 
 def get_view_dir(grid, x, y, direction):
-    # Helper function to get a one dimensional array from a tree at x,y in the grid representing
-    # the field of view in the top/left/up/down direction
+    # Create a 1D array representing the view corridor from a tree at x,y in direction up/down/left/right
     match direction:
         case "up":
             return [grid[i][y] for i in range(x - 1, -1, -1)]
