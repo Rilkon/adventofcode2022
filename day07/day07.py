@@ -45,8 +45,8 @@ def print_tree(treeroot):
 
 
 def part1(root):
-    # Filesizes were aggregated on dir level while building the tree, just get back all dirs with > 100.000 here
-    results = anytree.findall(root, filter_=lambda node: node.size < 100000 and node.node_type == "dir")
+    # Sizes are aggregated on dir level while building the tree, just get back all dirs <= 100.000 here
+    results = anytree.findall(root, filter_=lambda node: node.size <= 100000 and node.node_type == "dir")
     return sum(el.size for el in results)
 
 
