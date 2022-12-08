@@ -36,8 +36,8 @@ def get_view_dir(grid, x, y, direction):
 
 
 def is_visible(grid, x, y):
-    # Build a list of boolean values representing each of the 4 directions for a tree at x,y
-    # that is currently checked against the rest of the grid for visibility.
+    # Build a list of boolean values representing each of the 4 directions for a tree at x,y that is currently
+    # being checked against the rest of the grid for visibility.
     # all(): A tree is considered visible from a direction if all other trees are smaller in that direction
     # any(): A tree is considered visible globally when at least one of the direction results is True
     checks = [all([height < grid[x][y] for height in get_view_dir(grid, x, y, view_dir)])
