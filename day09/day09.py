@@ -56,7 +56,7 @@ def get_visited(data, n):
 def get_move(rel_pos):
     # This used to be a 1-1 mapping from a delta between two knots (see test_day09.py) to a new delta value
     # which is later added to the current knot to update its position.  However, it seems that the only thing that
-    # really changesin that assignment is 2 => 1 and -2 => -1 hence this function to simplify
+    # really changes in that assignment is 2 => 1 and -2 => -1 hence this function to simplify
     x, y = rel_pos
     if abs(x) == 2:
         x = x // 2
