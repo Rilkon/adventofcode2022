@@ -65,22 +65,16 @@ def part2(data):
 
     counter = 1
     for signal in signals:
-        pixel = get_overlap_pixel(counter, signal)
-        print(pixel, end="")
+        if ((counter - 1) % 40) in [signal - 1, signal, signal + 1]:
+            print("#", end="")
+        else:
+            print(".", end="")
         if counter % 40 == 0:
             print()
         counter += 1
     print()
 
     return ""
-
-
-def get_overlap_pixel(cycle, pos):
-    h_pos = (cycle - 1) % 40
-    pixel_pos = [pos - 1, pos, pos + 1]
-    if h_pos in pixel_pos:
-        return '#'
-    return '.'
 
 
 def solve(puzzle_input):
