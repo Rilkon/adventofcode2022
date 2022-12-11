@@ -12,7 +12,7 @@ def parse(parsedata):
     for i in range(1, len(monkeydata), 7):
         monkey_index = i // 7
         monkey_items = list(map(int, monkeydata[i].split(": ")[1].split(",")))
-        monkey_operation = monkeydata[i + 1].split("Operation: new = ")[1]
+        monkey_operation = monkeydata[i + 1].split("Operation: new = ")[1][4:]
         monkey_test = int(monkeydata[i + 2].split("Test: divisible by ")[1])
         monkey_true = int(monkeydata[i + 3].split("If true: throw to monkey ")[1])
         monkey_false = int(monkeydata[i + 4].split("If false: throw to monkey ")[1])
@@ -30,15 +30,19 @@ def do_monkeybusiness(rounds, monkeys, is_part2):
 
     for i in range(rounds):
         for monkey in monkeys:
-            while (monkey["items"]):
+            while monkey["items"]:
 
                 # Inspect Item
                 current_item = monkey["items"].pop(0)
                 monkey["inspects"] += 1
 
-                # Perform operation by replacing 'old' with current item and eval it
-                operation = monkey["operation"].replace("old", str(current_item))
-                current_item = eval(operation)
+                # Performance improvement by not using eval()
+                if monkey["operation"] == "* old":
+                    current_item *= current_item
+                elif monkey["operation"][:2] == "* ":
+                    current_item *= int(monkey["operation"].split("* ")[1])
+                elif monkey["operation"][:2] == "+ ":
+                    current_item += int(monkey["operation"].split("+ ")[1])
 
                 # Monkey gets bored
                 if is_part2:
