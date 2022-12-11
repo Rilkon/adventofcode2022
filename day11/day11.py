@@ -1,7 +1,6 @@
 import copy
 import pathlib
 import sys
-import logging
 from math import prod
 
 
@@ -22,26 +21,20 @@ def parse(parsedata):
                   "true": monkey_true, "false": monkey_false, "inspects": 0}
         monkeys.append(monkey)
 
-    logging.debug(monkeys)
     return monkeys
 
 
 def do_monkeybusiness(rounds, monkeys, is_part2):
     if is_part2:
         common_divisor = prod([monkey["test"] for monkey in monkeys])
-        logging.debug(common_divisor)
 
     for i in range(rounds):
-
         for monkey in monkeys:
-            logging.debug(f"Monkey {monkey['index']}: ")
-
             while (monkey["items"]):
 
                 # Inspect Item
                 current_item = monkey["items"].pop(0)
                 monkey["inspects"] += 1
-                logging.debug(f"  Monkey inspects an item with a worry level of {current_item}")
 
                 # Perform operation by replacing 'old' with current item and eval it
                 operation = monkey["operation"].replace("old", str(current_item))
@@ -59,10 +52,8 @@ def do_monkeybusiness(rounds, monkeys, is_part2):
                 # Do divisible check
                 if current_item % monkey["test"] == 0:
                     monkeys[monkey["true"]]["items"].append(current_item)
-                    logging.debug(f"Item with worry level {current_item} is thrown to monkey {monkey['true']}.")
                 else:
                     monkeys[monkey["false"]]["items"].append(current_item)
-                    logging.debug(f"Item with worry level {current_item} is thrown to monkey {monkey['false']}.")
 
     return monkeys
 
@@ -85,9 +76,7 @@ def solve(puzzle_data):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(stream=sys.stderr, level=logging.INFO)
     for path in sys.argv[1:]:
-        logging.debug(f"{path}:")
         puzzle_input = pathlib.Path(path).read_text().strip()
         solutions = solve(puzzle_input)
         print("\n".join(str(solution) for solution in solutions))
