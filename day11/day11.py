@@ -1,7 +1,6 @@
 import copy
 import pathlib
 import sys
-import re
 import logging
 from math import prod
 
@@ -27,8 +26,8 @@ def parse(parsedata):
     return monkeys
 
 
-def do_monkeybusiness(rounds, monkeys, part2):
-    if part2:
+def do_monkeybusiness(rounds, monkeys, is_part2):
+    if is_part2:
         common_divisor = prod([monkey["test"] for monkey in monkeys])
         logging.debug(common_divisor)
 
@@ -49,12 +48,12 @@ def do_monkeybusiness(rounds, monkeys, part2):
                 current_item = eval(operation)
 
                 # Monkey gets bored
-                if part2:
+                if is_part2:
                     # Part 2 - Modulo division by the product of all monkeys test division values should keep the
                     # calculations intact while preventing worry levels from reaching 'ridiculous levels'
                     current_item = current_item % common_divisor
                 else:
-                    # Part 1 - Floor Divide by 3
+                    # Part 1
                     current_item = current_item // 3
 
                 # Do divisible check
@@ -78,8 +77,8 @@ def part2(data):
     return prod(sorted([monkey["inspects"] for monkey in monkeys], reverse=True)[:2])
 
 
-def solve(puzzle_input):
-    data = parse(puzzle_input)
+def solve(puzzle_data):
+    data = parse(puzzle_data)
     solution1 = part1(copy.deepcopy(data))
     solution2 = part2(copy.deepcopy(data))
     return solution1, solution2

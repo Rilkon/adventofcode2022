@@ -14,8 +14,8 @@ def part2(data):
     return ""
 
 
-def solve(puzzle_input):
-    data = parse(puzzle_input)
+def solve(puzzle_data):
+    data = parse(puzzle_data)
     solution1 = part1(data)
     solution2 = part2(data)
     return solution1, solution2
