@@ -1,4 +1,3 @@
-import itertools
 import pathlib
 import sys
 
@@ -24,17 +23,24 @@ def parse(parsedata):
     return grid, start, goal
 
 
-def part1_and_2(grid, start, goal, plot=False):
-    # Part 1 - Start to Goal as described
+def part1(grid, start, goal, plot=False):
     route = astar(grid, start, goal)
 
-    # Option to plot the route
     if plot:
         plot_path(grid, start, goal, route[::-1])
 
-    # Part 1: Length from start to goal
-    # Part 2: Length of shortest route which arrives at value of a from goal
-    return len(route), len(list(itertools.takewhile(lambda x: grid[x[0]][x[1]] != ord("a"), route[1:])))
+    return len(route)
+
+
+def part2(grid, goal, plot=False):
+    route_lengths = []
+    start_points = find_elements(grid, ord("a"))
+
+    for start in start_points:
+        route = astar(grid, start, goal)
+        route_lengths.append(len(route))
+
+    return min(route_lengths)
 
 
 def find_elements(grid, element):
@@ -126,7 +132,8 @@ def plot_path(grid, start, goal, route):
 
 def solve(puzzle_data):
     data, start, goal = parse(puzzle_data)
-    solution1, solution2 = part1_and_2(data, start, goal, False)
+    solution1 = part1(data, start, goal, False)
+    solution2 = part2(data, goal, False)
     return solution1, solution2
 
 
