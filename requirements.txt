@@ -44,3 +44,4 @@ typer==0.7.0
 urllib3==1.26.13
 
 anytree~=2.8.0
+plotly~=5.11.0

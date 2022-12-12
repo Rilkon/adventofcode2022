@@ -1,6 +1,5 @@
 import pathlib
 import sys
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import pandas as pd
 
@@ -138,7 +137,7 @@ def plot_path(grid, start, goal, route):
 
 def solve(puzzle_data):
     data, start, goal = parse(puzzle_data)
-    solution1 = part1(data, start, goal, True)
+    solution1 = part1(data, start, goal, False)
     solution2 = part2(data, goal, False)
     return solution1, solution2
 
