@@ -26,7 +26,7 @@ def parse(parsedata):
 
 def do_monkeybusiness(rounds, monkeys, is_part2):
     if is_part2:
-        common_divisor = prod([monkey["test"] for monkey in monkeys])
+        lcm = prod([monkey["test"] for monkey in monkeys])
 
     for i in range(rounds):
         for monkey in monkeys:
@@ -48,7 +48,7 @@ def do_monkeybusiness(rounds, monkeys, is_part2):
                 if is_part2:
                     # Part 2 - Modulo division by the product of all monkeys test division values should keep the
                     # calculations intact while preventing worry levels from reaching 'ridiculous levels'
-                    current_item = current_item % common_divisor
+                    current_item = current_item % lcm
                 else:
                     # Part 1
                     current_item = current_item // 3
