@@ -1,12 +1,15 @@
+import itertools
 import pathlib
 import sys
+
 import matplotlib.pyplot as plt
 
 
 def parse(parsedata):
     # Parse input as a 2d grid consisting of the integer values of a-z as height levels
     # Remember start and goal
-    grid = [[0 for x in line] for line in parsedata.splitlines()]
+    start, goal = (0, 0)
+    grid = [[0 for _ in line] for line in parsedata.splitlines()]
     for i, row in enumerate(parsedata.splitlines()):
         for j, col in enumerate(row):
             if row[j] == "S":
@@ -19,6 +22,19 @@ def parse(parsedata):
                 grid[i][j] = ord(row[j])
 
     return grid, start, goal
+
+
+def part1_and_2(grid, start, goal, plot=False):
+    # Part 1 - Start to Goal as described
+    route = astar(grid, start, goal)
+
+    # Option to plot the route
+    if plot:
+        plot_path(grid, start, goal, route[::-1])
+
+    # Part 1: Length from start to goal
+    # Part 2: Length of shortest route which arrives at value of a from goal
+    return len(route), len(list(itertools.takewhile(lambda x: grid[x[0]][x[1]] != ord("a"), route[1:])))
 
 
 def find_elements(grid, element):
@@ -108,38 +124,9 @@ def plot_path(grid, start, goal, route):
     plt.show()
 
 
-def part1(grid, start, goal, plot=False):
-    route = astar(grid, start, goal)
-    route = route[::-1]
-
-    if plot:
-        plot_path(grid, start, goal, route)
-
-    return len(route)
-
-
-def part2(grid, goal, plot=False):
-    route_lengths = []
-    routes = []
-    start_points = find_elements(grid, ord("a"))
-
-    for start in start_points:
-        route = astar(grid, start, goal)
-        route = route[::-1]
-        routes.append(route)
-        route_lengths.append(len(route))
-
-    if plot:
-        route = routes[route_lengths.index(min(route_lengths))]
-        plot_path(grid, start, goal, route)
-
-    return min(route_lengths)
-
-
 def solve(puzzle_data):
     data, start, goal = parse(puzzle_data)
-    solution1 = part1(data, start, goal)
-    solution2 = part2(data, goal)
+    solution1, solution2 = part1_and_2(data, start, goal, False)
     return solution1, solution2
 
 
