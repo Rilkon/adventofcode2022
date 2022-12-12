@@ -1,7 +1,8 @@
 import pathlib
 import sys
-
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import pandas as pd
 
 
 def parse(parsedata):
@@ -111,28 +112,33 @@ def astar(array, start, goal):
 
 
 def plot_path(grid, start, goal, route):
-    x_coords = []
     y_coords = []
+    x_coords = []
+    z_values = []
 
     for i in (range(0, len(route))):
         x = route[i][0]
         y = route[i][1]
 
-        x_coords.append(x)
-        y_coords.append(y)
+        y_coords.append(x)
+        x_coords.append(y)
+        z = grid[x][y]
+        z_values.append(z)
 
-    fig, ax = plt.subplots(figsize=(20, 20))
-    ax.imshow(grid, cmap=plt.cm.Dark2)
-    ax.scatter(start[1], start[0], marker="*", color="yellow", s=200)
-    ax.scatter(goal[1], goal[0], marker="*", color="red", s=200)
-    ax.plot(y_coords, x_coords, color="black")
+    z_data = pd.DataFrame(grid)
+    fig = go.Figure(data=[go.Scatter3d(x=x_coords, y=y_coords, z=z_values, mode="lines+markers"),
+                          go.Surface(z=z_data.values, colorscale="Earth")])
 
-    plt.show()
+    fig.update_layout(title="Elves Hill Climbing", autosize=True,
+                      width=1920, height=1080,
+                      margin=dict(l=65, r=50, b=65, t=90))
+
+    fig.show()
 
 
 def solve(puzzle_data):
     data, start, goal = parse(puzzle_data)
-    solution1 = part1(data, start, goal, False)
+    solution1 = part1(data, start, goal, True)
     solution2 = part2(data, goal, False)
     return solution1, solution2
 
