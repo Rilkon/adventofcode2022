@@ -1,6 +1,8 @@
 import ast
 import pathlib
 import sys
+#import matplotlib.pyplot as plt
+#from matplotlib.ticker import MaxNLocator
 
 
 class Reservoir:
@@ -44,6 +46,25 @@ class Reservoir:
 
                 self.cave[(x, y)] = self.SAND
                 break
+
+        # x_values = []
+        # y_values = []
+        # for key, value in self.cave.items():
+        #     if value == self.WALL:
+        #         x_values.append(key[0])
+        #         y_values.append(key[1])
+        #
+        # plt.scatter(x_values, y_values, marker="s", c="Black")
+        # x_values = []
+        # y_values = []
+        # for key, value in self.cave.items():
+        #     if value == self.SAND:
+        #         x_values.append(key[0])
+        #         y_values.append(key[1])
+        # plt.scatter(x_values, y_values, marker="s", c="#C2B280")
+        #
+        # plt.gca().invert_yaxis()
+        # plt.show()
 
         return sum(entry == self.SAND for entry in self.cave.values())
 
