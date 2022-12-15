@@ -57,7 +57,7 @@ def find_elements(grid, element):
 
 def heuristic(a, b):
     # Manhattan distance because movement is always horizontal or vertical?
-    return abs((b[0] - a[0]) + abs(b[1] - a[1]))
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
 def astar(array, start, goal):
