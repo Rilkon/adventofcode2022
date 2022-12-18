@@ -24,10 +24,10 @@ def part1(jets):
 
             # Move rock down
             rock = move_rock(rock, "down", chamber)
-            if rock & chamber:
+            if any(value in chamber for value in rock):
                 # Rock and chamber overlap -> undo movement and update chamber and max height
                 rock = move_rock(rock, "up", chamber)
-                chamber |= rock
+                chamber.update(rock)
                 max_height = max([y for (x, y) in chamber])
                 break
 
@@ -63,12 +63,12 @@ def move_rock(rock, direction, chamber):
     match direction:
         case "<":
             new_rock = {(x - 1, y) for (x, y) in rock}
-            if any([x == 0 for (x, y) in rock]) or new_rock & chamber:
+            if any([x == 0 for (x, y) in rock]) or any(value in chamber for value in new_rock):
                 return rock
             return new_rock
         case ">":
             new_rock = {(x + 1, y) for (x, y) in rock}
-            if any([x == 6 for (x, y) in rock]) or new_rock & chamber:
+            if any([x == 6 for (x, y) in rock]) or any(value in chamber for value in new_rock):
                 return rock
             return new_rock
         case "down":
