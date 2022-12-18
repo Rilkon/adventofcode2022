@@ -45,7 +45,7 @@ def get_rock(cycle, y):
             # Cross
             return {(3, y + 2), (2, y + 1), (3, y + 1), (4, y + 1), (3, y)}
         case 2:
-            # L
+            # Mirrored L
             return {(2, y), (3, y), (4, y), (4, y + 1), (4, y + 2)}
         case 3:
             # Vline
