@@ -36,6 +36,7 @@ def part1(jets):
 
 
 def get_rock(cycle, y):
+    # Rock types as coordinates
     match cycle:
         case 0:
             # Hline
@@ -57,17 +58,19 @@ def get_rock(cycle, y):
 
 
 def move_rock(rock, direction, chamber):
+    # Return the new position of the rock after movement
+    # If the rock would collide with borders of thechamber or with another rock, skip movement and return old position
     match direction:
         case "<":
             new_rock = set([(x - 1, y) for (x, y) in rock])
             if any([x == 0 for (x, y) in rock]) or new_rock & chamber:
                 return rock
-            return set([(x - 1, y) for (x, y) in rock])
+            return new_rock
         case ">":
             new_rock = set([(x + 1, y) for (x, y) in rock])
             if any([x == 6 for (x, y) in rock]) or new_rock & chamber:
                 return rock
-            return set([(x + 1, y) for (x, y) in rock])
+            return new_rock
         case "down":
             return set([(x, y - 1) for (x, y) in rock])
         case "up":
