@@ -1,42 +1,77 @@
 import pathlib
 import sys
 
-blocknames = ["hline", "cross", "L", "vline", "square"]
-blocks = [[1, 1, 1, 1],
-          [[0, 1, 0], [1, 1, 1], [0, 1, 0]],
-          [[0, 0, 1], [0, 0, 1], [1, 1, 1]],
-          [[1], [1], [1], [1]],
-          [[1, 1], [1, 1]]]
-emptyline = [0, 0, 0, 0, 0, 0, 0]
-
 
 def parse(parsedata):
     return list(parsedata)
 
 
-def part1(data):
-    print(data)
-
-    # Each rock appears so that its left edge is two units away from the left wall and its bottom edge is three units above
-    # the highest rock in the room (or the floor, if there isn't one)."
-
+def part1(jets):
+    limit = 2022
+    chamber = set([(x, 0) for x in range(7)])
     stopped_rocks = 0
-    while stopped_rocks < 2022:
-        pass
+    max_height = 0
+    j = 0
 
-        # extend play area by three + vertical_size of new rock empty rows from 1st element or floor
+    while stopped_rocks < limit:
+        # Create new rock
+        rock = get_rock(stopped_rocks % 5, max_height + 4)
+        while True:
 
-        # create new rock if existing one stopped falling
+            # Push by jets of gas
+            rock = move_rock(rock, jets[j], chamber)
+            j = (j + 1) % len(jets)
 
-        # check if rock can be pushed by jet of gas
-        # yes -> push in direction
-        # no -> keep it
+            # Move rock down
+            rock = move_rock(rock, "down", chamber)
+            if rock & chamber:
+                # Rock and chamber overlap -> undo movement and update chamber and max height
+                rock = move_rock(rock, "up", chamber)
+                chamber |= rock
+                max_height = max([y for (x, y) in chamber])
+                break
 
-        # check if rock can fall  - else stopped_rocks++ and continue with extending playing area and new rock
+        stopped_rocks += 1
+    return max_height
 
-        # rock falls 1 unit
 
-    return ""
+def get_rock(cycle, y):
+    match cycle:
+        case 0:
+            # Hline
+            return {(2, y), (3, y), (4, y), (5, y)}
+        case 1:
+            # Cross
+            return {(3, y + 2), (2, y + 1), (3, y + 1), (4, y + 1), (3, y)}
+        case 2:
+            # L
+            return {(2, y), (3, y), (4, y), (4, y + 1), (4, y + 2)}
+        case 3:
+            # Vline
+            return {(2, y), (2, y + 1), (2, y + 2), (2, y + 3)}
+        case 4:
+            # Square
+            return {(2, y + 1), (2, y), (3, y + 1), (3, y)}
+
+    raise ValueError(f" {cycle} not possible. Only 5 different pieces available")
+
+
+def move_rock(rock, direction, chamber):
+    match direction:
+        case "<":
+            new_rock = set([(x - 1, y) for (x, y) in rock])
+            if any([x == 0 for (x, y) in rock]) or new_rock & chamber:
+                return rock
+            return set([(x - 1, y) for (x, y) in rock])
+        case ">":
+            new_rock = set([(x + 1, y) for (x, y) in rock])
+            if any([x == 6 for (x, y) in rock]) or new_rock & chamber:
+                return rock
+            return set([(x + 1, y) for (x, y) in rock])
+        case "down":
+            return set([(x, y - 1) for (x, y) in rock])
+        case "up":
+            return set([(x, y + 1) for (x, y) in rock])
 
 
 def part2(data):
