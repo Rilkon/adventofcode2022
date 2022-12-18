@@ -59,7 +59,7 @@ def get_rock(cycle, y):
 
 def move_rock(rock, direction, chamber):
     # Return the new position of the rock after movement
-    # If the rock would collide with borders of thechamber or with another rock, skip movement and return old position
+    # If the rock would collide with chamber borders or with another rock, skip movement and return old position
     match direction:
         case "<":
             new_rock = {(x - 1, y) for (x, y) in rock}
