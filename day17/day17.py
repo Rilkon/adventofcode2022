@@ -6,12 +6,14 @@ def parse(parsedata):
     return list(parsedata)
 
 
-def part1(jets):
-    limit = 2022
-    chamber = set([(x, 0) for x in range(7)])
+def solve(jets):
+    limit = 1000000000000
+    chamber = {(x, 0) for x in range(7)}
     stopped_rocks = 0
     max_height = 0
     j = 0
+    previous = {}
+    skipped = None
 
     while stopped_rocks < limit:
         # Create new rock
@@ -29,9 +31,32 @@ def part1(jets):
                 rock = move_rock(rock, "up", chamber)
                 chamber.update(rock)
                 max_height = max([y for (x, y) in chamber])
+
+                if skipped is None and max_height > 300:
+                    top_rocks = []
+                    for x, y in chamber:
+                        if y >= max_height - 100:
+                            top_rocks.append((x, max_height - y))
+
+                    state = (tuple(sorted(top_rocks)), j, stopped_rocks % 5)
+
+                    if state in previous:
+                        prev_n, prev_y = previous[state]
+                        delta_y = max_height - prev_y
+                        delta_rocks = stopped_rocks - prev_n
+                        steps = (limit - stopped_rocks) // delta_rocks
+                        skipped = delta_y * steps
+                        stopped_rocks += delta_rocks * steps
+
+                    previous[state] = (stopped_rocks, max_height)
                 break
 
         stopped_rocks += 1
+        # Part 1
+        if stopped_rocks == 2022:
+            print(max_height)
+
+    max_height += skipped
     return max_height
 
 
@@ -77,20 +102,9 @@ def move_rock(rock, direction, chamber):
             return {(x, y + 1) for (x, y) in rock}
 
 
-def part2(data):
-    return ""
-
-
-def solve(puzzle_data):
-    data = parse(puzzle_data)
-    solution1 = part1(data)
-    solution2 = part2(data)
-    return solution1, solution2
-
-
 if __name__ == "__main__":
     for path in sys.argv[1:]:
         print(f"{path}:")
         puzzle_input = pathlib.Path(path).read_text().strip()
-        solutions = solve(puzzle_input)
-        print("\n".join(str(solution) for solution in solutions))
+        solution = solve(puzzle_input)
+        print(solution)
