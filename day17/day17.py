@@ -62,19 +62,19 @@ def move_rock(rock, direction, chamber):
     # If the rock would collide with borders of thechamber or with another rock, skip movement and return old position
     match direction:
         case "<":
-            new_rock = set([(x - 1, y) for (x, y) in rock])
+            new_rock = {(x - 1, y) for (x, y) in rock}
             if any([x == 0 for (x, y) in rock]) or new_rock & chamber:
                 return rock
             return new_rock
         case ">":
-            new_rock = set([(x + 1, y) for (x, y) in rock])
+            new_rock = {(x + 1, y) for (x, y) in rock}
             if any([x == 6 for (x, y) in rock]) or new_rock & chamber:
                 return rock
             return new_rock
         case "down":
-            return set([(x, y - 1) for (x, y) in rock])
+            return {(x, y - 1) for (x, y) in rock}
         case "up":
-            return set([(x, y + 1) for (x, y) in rock])
+            return {(x, y + 1) for (x, y) in rock}
 
 
 def part2(data):
