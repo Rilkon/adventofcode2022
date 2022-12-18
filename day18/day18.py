@@ -15,9 +15,10 @@ def are_cubes_touching(cube_a, cube_b):
 
 
 def part1(data):
-    # Substract two from our result for every pair/combination of cubes touching
-    result = sum([are_cubes_touching(cube1, cube2) * 2 for cube1, cube2 in itertools.combinations(data, 2)])
-    return (6 * len(data)) - result
+    # Total surface area = 6 (sides) * number of cubes
+    # Substract two from total for every pair/combination of cubes touching
+    touching_cubes = sum([are_cubes_touching(cube1, cube2) * 2 for cube1, cube2 in itertools.combinations(data, 2)])
+    return (6 * len(data)) - touching_cubes
 
 
 def part2(data):
