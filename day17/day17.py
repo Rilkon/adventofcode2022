@@ -53,7 +53,7 @@ def get_rock(cycle, y):
             # Square
             return {(2, y + 1), (2, y), (3, y + 1), (3, y)}
 
-    raise ValueError(f" {cycle} not possible. Only 5 different pieces available")
+    raise ValueError(f" {cycle} not possible. Only 5 different rocks available")
 
 
 def move_rock(rock, direction, chamber):
